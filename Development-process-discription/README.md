@@ -17,3 +17,4 @@ Started learning ExpressJs framework for NodeJs & MongoDb. Going throught this t
 ###Working day durutation:
 
 Learnt what .gitignore file is and afther alot of testing learnt the right way to use it. 
+Finished the tutorial from yesterday {http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/} (changed some minor stuff while following it).
