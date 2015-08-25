@@ -14,7 +14,8 @@ Started learning ExpressJs framework for NodeJs & MongoDb. Going throught this t
 
 ##~25.08.2015:
 
-###Working day durutation:
+###Working day durutation: 06:00
 
 Learnt what .gitignore file is and afther alot of testing learnt the right way to use it. 
 Finished the tutorial from yesterday {http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/} (changed some minor stuff while following it).
+Going throught this tutorial ,but using pure JS instead of jQuery {http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/} currently at "PART 6 - POPULATING USER INFO".
