@@ -1,5 +1,6 @@
 */node_modules/*
 /node_modules/*
+*/node_modules/*.js
 */diplomna2/diplomna2/*.sublime*
 diplomna2/diplomna2/*.sublime*
 # Logs
