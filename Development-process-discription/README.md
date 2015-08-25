@@ -13,3 +13,7 @@ Learnt the basics of NodeJs and that Expressjs framework is a must use, NodeJs a
 Started learning ExpressJs framework for NodeJs & MongoDb. Going throught this tutorial {http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/} currently at "PART 4 – THE HOLY GRAIL: WRITING TO THE DB" afther some testing and experimenting out side the tuto. Still no clear answer to should I use AngularJs or pure Js. Also having a new doubt about should i use html template engine inside NodeJs or go all for clinet side.
 
 ##~25.08.2015:
+
+###Working day durutation:
+
+Learnt what .gitignore file is and afther alot of testing learnt the right way to use it. 
