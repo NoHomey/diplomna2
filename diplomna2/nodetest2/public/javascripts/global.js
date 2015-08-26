@@ -10,19 +10,11 @@ function populateTable() {
 		      if (httpRequest.status === 200) {
 		        var res = JSON.parse(httpRequest.responseText);
 	    		res.forEach(function (element, index, array) {
-	    			var tr = newElement("tr", {});
-	    			var td = newElement("td", {});
-	    			var a = newElement("a", {href : "#", class : "linkshowuser", rel : element.username, innerHTML : element.username});
-	    			td.appendChild(a);
-	    			tr.appendChild(td);
-	    			var td = newElement("td", {innerHTML : element.email});
-	    			tr.appendChild(td);
-	    			var td = newElement("td", {});
-	    			var a = newElement("a", {href : "#", class : "linkshowuser", rel : element._id, innerHTML : "delete"});
-	    			td.appendChild(a);
-	    			tr.appendChild(td);
+	    			var tr = newElement({type : "tr"});
+	    			tr.appendChild(newElement({type : "td"})).appendChild(newElement({type : "a", href : "#", class : "linkshowuser", rel : element.username, innerHTML : element.username}));
+	    			tr.appendChild(newElement({type : "td", innerHTML : element.email}));
+	    			tr.appendChild(newElement({type : "td"})).appendChild(newElement({type : "a", href : "#", class : "linkshowuser", rel : element._id, innerHTML : "delete"}));
 	    			document.getElementById("tbody").appendChild(tr);
-	    			console.log(tr.td);
 	    		});
 		      } else 
 		        alert('There was a problem with the request.');
@@ -35,8 +27,8 @@ function populateTable() {
     httpRequest.send();    
 };
 
-function newElement (type, attrs) {
-	var element = document.createElement(type);
+function newElement (attrs) {
+	var element = document.createElement(attrs.type);
 	for(var a in attrs) 
 		element[a] = attrs[a];
 	return element;
