@@ -19,3 +19,10 @@ Started learning ExpressJs framework for NodeJs & MongoDb. Going throught this t
 Learnt what .gitignore file is and afther alot of testing learnt the right way to use it. 
 Finished the tutorial from yesterday {http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/} (changed some minor stuff while following it).
 Going throught this tutorial ,but using pure JS instead of jQuery {http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/} currently at "PART 6 - POPULATING USER INFO".
+
+##~29.08.2015:
+
+###Working day durutation:
+
+Learnt how to overwrite git history by using the command <git filter-branch ...>.
+Overwrote the repository history by removing all files in all <node_modules> folders.
