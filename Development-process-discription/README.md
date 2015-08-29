@@ -24,5 +24,8 @@ Going throught this tutorial ,but using pure JS instead of jQuery {http://cwbuec
 
 ###Working day durutation:
 
-Learnt how to overwrite git history by using the command <git filter-branch ...>.
-Overwrote the repository history by removing all files in all <node_modules> folders.
+Learnt how to overwrite git history by using the command 
+> git filter-branch ...
+
+Overwrote the repository history by removing all files in all
+> node_modules folders.
