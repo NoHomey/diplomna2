@@ -3,6 +3,12 @@
 
     var userListData = [];
 
+    Array.prototype.first = function () {
+        return this[0];
+    };
+
+    console.log(Array);
+
     // Fill table with data
     function populateTable() {
         httpRequest = new XMLHttpRequest();
@@ -14,9 +20,9 @@
                     userListData = res;
                     res.forEach(function (element, index, array) {
                         var tr = newElement("tr");
-                        tr.appendChild(newElement("td")).appendChild(newElement("a", {href : "#", class : "linkshowuser", rel : element.username, innerHTML : element.username, onclick : onClickValue("showUserInfoObject", [element])}));
+                        tr.appendChild(newElement("td")).appendChild(newElement("a", {href : "#", class : "linkshowuser", rel : element.username, innerHTML : element.username, onclick : showUserInfo, onclickArguments : [element]}));
                         tr.appendChild(newElement("td", {innerHTML : element.email}));
-                        tr.appendChild(newElement("td")).appendChild(newElement("a", {href : "#", class : "linkshowuser", rel : element._id, innerHTML : "delete", onclick : onClickValue("showUserInfo", [element.username])}));
+                        tr.appendChild(newElement("td")).appendChild(newElement("a", {href : "#", class : "linkshowuser", rel : element._id, innerHTML : "delete", onclick : showUserInfo,onclickArguments : [element]}));
                         document.getElementById("tbody").appendChild(tr);
                     });
                   } else 
@@ -34,50 +40,18 @@
         var element = document.createElement(type);
         for(var a in attrs) {
             if(attrs[a] === attrs.onclick)
-                element.setAttribute("onclick", attrs[a]);
+                element.addEventListener("click", attrs[a]);
             else element[a] = attrs[a];
         }
         return element;
     }
-
-    function findUserByName (username) {
-        for (var i in userListData)
-            if (userListData[i].username == username)
-                return userListData[i];
-    }
-
-    function onClickValue (functionName, args) {
-        args = args.map(function (arg) {
-            switch (typeof arg) {
-                case "string":
-                    return "\'" + arg + "\'";
-                case "object": 
-                    return JSON.stringify(arg);
-                case "number":
-                    return arg;
-                case "boolean":
-                    return arg;
-                case "undefined":
-                    return arg;
-            }
-        });
-        functionName += '(';
-        for(var arg in args)
-            functionName += args[arg];
-        return functionName + ')';
-    }
-
-    function showUserInfo (username) {
-        var user = findUserByName(username);
+    
+    function showUserInfo (event) {
+        var user = event.target.onclickArguments.first();
         document.getElementById("userInfoName").innerHTML = user.fullname;
         document.getElementById("userInfoAge").innerHTML = user.age;
         document.getElementById("userInfoGender").innerHTML = user.gender;
         document.getElementById("userInfoLocation").innerHTML = user.location;
     }
 
-    function showUserInfoObject (user) {
-       document.getElementById("userInfoName").innerHTML = user.fullname;
-        document.getElementById("userInfoAge").innerHTML = user.age;
-        document.getElementById("userInfoGender").innerHTML = user.gender;
-        document.getElementById("userInfoLocation").innerHTML = user.location;
-    }
+    console.log([1].first, "a");

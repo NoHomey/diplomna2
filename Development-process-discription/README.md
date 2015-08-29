@@ -22,16 +22,16 @@ Going throught this tutorial ,but using pure JS instead of jQuery {http://cwbuec
 
 ##~29.08.2015:
 
-###Working day durutation:
+###Working day durutation: 5:30
 
 Learnt how to overwrite git history by using the command 
-<<<<<<< HEAD
+
 > git filter-branch ....    
 Overwrote the repository history by removing all files in all
-> node_modules> folders.
-=======
-> git filter-branch ...
+
+> node_modules folders.
 
 Overwrote the repository history by removing all files in all
 > node_modules folders.
->>>>>>> 0127813e0c869af5ebd3091098902fd1f7857d5d
+
+Found the best solution of using onclick events {the most secure & good looking one (from all 3 opportunities currently known to me)}.
