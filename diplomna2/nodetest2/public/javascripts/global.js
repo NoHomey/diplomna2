@@ -1,5 +1,6 @@
     var userListData = [];
     document.body.onload = populateTable;
+    document.body.addEventListener("onload", generateUpdateUser);
     document.getElementById("btnAddUser").addEventListener("click", addUser);
 
     Array.prototype.first = function () {
@@ -16,13 +17,22 @@
 
     // Fill table with data
     function populateTable(event) {
+        try {
+            var h2;
+            if(h2 = document.getElementById("updateUser"))
+                removeElement(h2); 
+            generateUpdateUser();
+        } catch (e) {
+            alert('Caught Exception: ' + e.description);
+        }
         if(event) event.preventDefault();
         AJAX(index, 'GET', '/users/userlist', '');
     }
 
     function index (event) {
             event.preventDefault();
-            document.getElementById("tbody").innerHTML = null;
+            while(document.getElementById("tbody").firstChild)
+                removeElement(document.getElementById("tbody").firstChild);
             try {
                 if (event.target.readyState === 4) {
                   if (event.target.status === 200) {
@@ -121,4 +131,23 @@
         } catch (e) {
              alert('Caught Exception: ' + e.description);
         }
+    }
+
+    function generateUpdateUser () {
+        fieldset = newElement("fieldset");
+        fieldset.appendChild(newElement("input", {id : "inputUpdateUserName", type : "text", placeholder : "UserName"}));
+        fieldset.appendChild(newElement("input", {id : "inputUpdateUserEmail", type : "text", placeholder : "Email"}));
+        fieldset.appendChild(newElement("br"));
+        fieldset.appendChild(newElement("input", {id : "inputUpdateUserFullName", type : "text", placeholder : "FullName"}));
+        fieldset.appendChild(newElement("input", {id : "inputUpdateUserAge", type : "text", placeholder : "Age"}));
+        fieldset.appendChild(newElement("br"));
+        fieldset.appendChild(newElement("input", {id : "inputUpdateLocation", type : "text", placeholder : "Location"}));
+        fieldset.appendChild(newElement("input", {id : "inputUpdateUserGender", type : "text", placeholder : "Gender"}));
+        document.body.appendChild(newElement("h2", {id : "updateUser", innerHTML : "UpdateUser"})).appendChild(fieldset);
+    }
+
+    function removeElement (element) {
+        while(element.firstChild) 
+            removeElement(element.firstChild);
+        element.parentNode.removeChild(element);
     }
