@@ -1,5 +1,5 @@
-    var httpRequest;
     document.body.onload = populateTable;
+    document.getElementById("btnAddUser").addEventListener("click", addUser);
 
     var userListData = [];
 
@@ -7,16 +7,27 @@
         return this[0];
     };
 
-    console.log(Array);
+     function AJAX (onready, method, url, data) {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = onready;
+        httpRequest.open(method, url);
+        httpRequest.setRequestHeader('Content-Type', "application/json;charset=UTF-8");
+        httpRequest.send(data);  
+    }
 
     // Fill table with data
-    function populateTable() {
-        httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = function() {
+    function populateTable(event) {
+        if(event) event.preventDefault();
+        AJAX(index, 'GET', '/users/userlist', '');
+    };
+
+    function index (event) {
+            event.preventDefault();
+            document.getElementById("tbody").innerHTML = null;
             try {
-                if (httpRequest.readyState === 4) {
-                  if (httpRequest.status === 200) {
-                    var res = JSON.parse(httpRequest.responseText);
+                if (event.target.readyState === 4) {
+                  if (event.target.status === 200) {
+                    var res = JSON.parse(event.target.responseText);
                     userListData = res;
                     res.forEach(function (element, index, array) {
                         var tr = newElement("tr");
@@ -31,10 +42,7 @@
             } catch (e) {
                 alert('Caught Exception: ' + e.description);
             }
-        };
-        httpRequest.open('GET', '/users/userlist');
-        httpRequest.send();    
-    };
+        }
 
     function newElement (type, attrs) {
         var element = document.createElement(type);
@@ -47,6 +55,7 @@
     }
     
     function showUserInfo (event) {
+        event.preventDefault();
         var user = event.target.onclickArguments.first();
         document.getElementById("userInfoName").innerHTML = user.fullname;
         document.getElementById("userInfoAge").innerHTML = user.age;
@@ -54,4 +63,35 @@
         document.getElementById("userInfoLocation").innerHTML = user.location;
     }
 
-    console.log([1].first, "a");
+    function addUser (event) {
+        event.preventDefault();
+        var errorCount = 0;
+        var inputs = document.getElementById("addUser").getElementsByTagName("input");
+        for(input in inputs)
+            if((inputs[input].value !== undefined) && (inputs[input].value === ''))
+                errorCount++;
+        if(!errorCount) {
+            var newUser = {
+                'username' : document.getElementById("inputUserName").value,
+                'email': document.getElementById("inputUserEmail").value,
+                'fullname': document.getElementById("inputUserFullname").value,
+                'age': document.getElementById("inputUserAge").value,
+                'location': document.getElementById("inputUserLocation").value,
+                'gender': document.getElementById("inputUserGender").value
+            };
+            AJAX(addNewUser, 'POST', '/users/adduser', JSON.stringify(newUser)) ;
+
+        } else alert('Please fill in all fields');
+
+    }
+
+    function addNewUser (event) {
+        var res = JSON.parse(event.target.responseText);
+        if(res.msg === '') {
+            var inputs = document.getElementById("addUser").getElementsByTagName("input");
+            for(input in inputs)
+                if(inputs[input].value !== undefined)
+                    inputs[input].value = "";
+            populateTable(null);
+        } else alert('Error: ' + res.msg)
+    }
