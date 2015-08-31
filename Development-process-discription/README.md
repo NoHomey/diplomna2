@@ -35,3 +35,13 @@ Overwrote the repository history by removing all files in all
 > node_modules folders.
 
 Found the best solution of using onclick events {the most secure & good looking one (from all 3 opportunities currently known to me)}.
+
+##~31.08.2015:
+
+###Working day durutation: 6:00
+
+Finished tutorial {http://cwbuecheler.com/web/tutorials/2014/restful-web-app-node-express-mongodb/}.
+
+Added functionality to update users by making 'PUT' request.
+
+Refactored .../nodetest2/public/javascript/global.js.

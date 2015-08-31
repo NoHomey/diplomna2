@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/userlist', function(req, res) {
     var db = req.db;
     var collection = db.get('userlist');
-    collection.find({},{},function(e,docs){
+    collection.find({}, function(e,docs){
         res.json(docs);
     });
 });
@@ -32,9 +32,18 @@ router.delete('/deleteuser/:id', function(req, res) {
     var db = req.db;
     var collection = db.get('userlist');
     var userToDelete = req.params.id;
-    collection.remove({ '_id' : userToDelete }, function(err) {
+    collection.remove({ '_id' : userToDelete }, function (err) {
         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
     });
+});
+
+router.put('/updateuser/:id', function(req, res) {
+	var db = req.db;
+	var collection = db.get('userlist');
+	var userToUpdate = req.params.id;
+	collection.updateById(userToUpdate, { $set: req.body}, function (err) {
+		res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
+	});
 });
 
 module.exports = router;
