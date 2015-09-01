@@ -45,3 +45,15 @@ Finished tutorial {http://cwbuecheler.com/web/tutorials/2014/restful-web-app-nod
 Added functionality to update users by making 'PUT' request.
 
 Refactored .../nodetest2/public/javascript/global.js.
+
+##~01.09.2015:
+
+###Working day durutation: 4:30
+
+Read those 3 tutorials and got the confidence for starting the thesis
+
+http://webapplog.com/todo-app-with-express-jsnode-js-and-mongodb/
+
+https://www.airpair.com/javascript/complete-expressjs-nodejs-mongodb-crud-skeleton
+
+https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
