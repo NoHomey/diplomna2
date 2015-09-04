@@ -69,3 +69,11 @@ Start looking at AngularJS by reading :
 https://docs.angularjs.org/tutorial
 
 https://docs.angularjs.org/guide
+
+##~04.09.2015:
+
+###Working day durutation: 3:00
+
+Switched from Intellij to WebStorm.
+
+Set IDE settings {most of time spent in creating cusstom theme}.

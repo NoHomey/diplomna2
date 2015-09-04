@@ -1,7 +1,6 @@
 node_modules/*.js
 # Logs
 logs
-*.log
 npm-debug.log*
 npm-debug.log
 
@@ -31,12 +30,7 @@ node_modules
 
 #Intellij
 .idea/
-.idea/*
-*.iml
 
 #Mongo
 data/*
 data/
-
-#tmp
-*~
