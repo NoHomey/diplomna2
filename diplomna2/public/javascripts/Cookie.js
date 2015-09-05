@@ -12,6 +12,11 @@ var Cookie = function (cookie, expire) {
             exp = Date.now() + (day * 86400000);
         return new Date(exp).toUTCString();
     };
+    var copy = function (name, value, expires) {
+        cookieName = name;
+        cookieValue = value;
+        cookieExpires = expires;
+    };
     var move = function () {
         var cookie = {};
         cookie[cookieName] = cookieValue;
@@ -22,9 +27,7 @@ var Cookie = function (cookie, expire) {
         var cookie = {};
         cookie[name] = value;
         new Cookie(cookie, expires);
-        cookieName = name;
-        cookieValue = value;
-        cookieExpires = expires;
+        copy(name, value, expires);
     };
     this.name = function(name) {
       if(!name)
@@ -43,12 +46,11 @@ var Cookie = function (cookie, expire) {
     };
     this.remove = function () {
         move();
-       // delete this;
     };
     this.get = function (cookieName) {
         var cookies = document.cookie;
         if(!cookies)
-            return;
+            return null;
         cookies = cookies.split('; ');
         cookies.forEach(function (cookie, index, cookies) {
             var c = cookie.split('=');
@@ -62,19 +64,18 @@ var Cookie = function (cookie, expire) {
         if(cookieName)
             for(var cookie in cookies)
                 if(cookies[cookie].name() === cookieName)
-                    return cookies[cookie];
+                    copy(cookies[cookie].name(), cookies[cookie].value(), cookies[cookie].expires());
         return cookies;
     };
     this.exist = function (cookieName) {
         var res = this.get(cookieName);
-        return !!(res && res.hasOwnProperty("exist") && res.hasOwnProperty("get"));
+        return !!(res && res.hasOwnProperty('exist') && res.hasOwnProperty('get'));
     };
     for(var prop in cookie) {
         cookieExpires = expire;
         cookieName = prop;
         cookieValue = cookie[prop];
-        cookie[prop] = {value : cookie[prop], expires : cookieExpires};
-        cookie[prop] = JSON.stringify(cookie[prop]);
+        cookie[prop] = JSON.stringify({value : cookie[prop], expires : cookieExpires});
         expire = convertDayToMilliseconds(expire);
         var newCookie =  '' + prop + '=' + cookie[prop];
         if (cookieExpires !== undefined)

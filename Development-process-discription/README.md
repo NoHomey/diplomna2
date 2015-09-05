@@ -77,3 +77,9 @@ https://docs.angularjs.org/guide
 Switched from Intellij to WebStorm.
 
 Set IDE settings {most of time spent in creating cusstom theme}.
+
+##~05.09.2015:
+
+###Working day durutation: 3:30
+
+Implemented Cookie Api and test it.
