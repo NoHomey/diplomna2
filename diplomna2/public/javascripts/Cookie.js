@@ -1,20 +1,21 @@
 var Cookie = function (cookie, expire) {
-    var cookieExpires;
+    var cookieExpires ;
     var cookieName;
     var cookieValue;
     var convertDayToMilliseconds = function (day) {
         var exp;
-        if(!day)
-            return new Date(-1).toUTCString();
         if(day === -1)
             exp = 0x7fffffff * 1e3;
         else
             exp = Date.now() + (day * 86400000);
+        if(!day)
+            exp = -1;
         return new Date(exp).toUTCString();
     };
-    var copy = function (name, value, expires) {
+    var copy = function (cookie, expires) {
+        var name = Object.keys(cookie)[0];
         cookieName = name;
-        cookieValue = value;
+        cookieValue = cookie[name];
         cookieExpires = expires;
     };
     var move = function () {
@@ -27,22 +28,22 @@ var Cookie = function (cookie, expire) {
         var cookie = {};
         cookie[name] = value;
         new Cookie(cookie, expires);
-        copy(name, value, expires);
+        copy(cookie, expires);
     };
-    this.name = function(name) {
-      if(!name)
-          return cookieName;
-       update(name, cookieValue, cookieExpires);
+    this.name = function (newName) {
+        if(!newName)
+            return cookieName;
+        update(newName, cookieValue, cookieExpires);
     };
-    this.value = function(value) {
-        if(!value)
+    this.value = function (newValue) {
+        if(!newValue)
             return cookieValue;
-        update(cookieName, value, cookieExpires);
+        update(cookieName, newValue, cookieExpires);
     };
-    this.expires = function(expires) {
-        if(!expires && (expires !== 0))
+    this.expires = function (newExpires) {
+        if(!newExpires && (newExpires !== 0))
             return cookieExpires;
-        update(cookieName, cookieValue, expires);
+        update(cookieName, cookieValue, newExpires);
     };
     this.remove = function () {
         move();
@@ -52,34 +53,33 @@ var Cookie = function (cookie, expire) {
         if(!cookies)
             return null;
         cookies = cookies.split('; ');
-        cookies.forEach(function (cookie, index, cookies) {
-            var c = cookie.split('=');
-            var newCookie = new Cookie();
+        for(var index in cookies) {
+            var c = cookies[index].split('=');
+            var cookie = {};
             c[1] = JSON.parse(c[1]);
-            newCookie.name(c[0]);
-            newCookie.value(c[1].value);
-            newCookie.expires(c[1].expires);
-            cookies[index] = newCookie;
-        });
-        if(cookieName)
-            for(var cookie in cookies)
-                if(cookies[cookie].name() === cookieName)
-                    copy(cookies[cookie].name(), cookies[cookie].value(), cookies[cookie].expires());
+            cookie[c[0]] = c[1].value;
+            if(c[0] === cookieName) {
+                copy(cookie, c[1].expires);
+                return this;
+            }
+            cookies[index] = new Cookie(cookie, c[1].expires);
+        }
         return cookies;
     };
     this.exist = function (cookieName) {
         var res = this.get(cookieName);
         return !!(res && res.hasOwnProperty('exist') && res.hasOwnProperty('get'));
     };
-    for(var prop in cookie) {
+    if(cookie) {
+        var name = Object.keys(cookie)[0];
         cookieExpires = expire;
-        cookieName = prop;
-        cookieValue = cookie[prop];
-        cookie[prop] = JSON.stringify({value : cookie[prop], expires : cookieExpires});
+        cookieName = name;
+        cookieValue = cookie[name];
+        cookie[name] = JSON.stringify({value : cookie[name], expires : cookieExpires});
         expire = convertDayToMilliseconds(expire);
-        var newCookie =  '' + prop + '=' + cookie[prop];
-        if (cookieExpires !== undefined)
-            newCookie +=  ';expires=' + expire;
+        var newCookie = name + '=' + cookie[name];
+        if(cookieExpires !== undefined)
+            newCookie += ';expires=' + expire;
         document.cookie = newCookie;
     }
 };
