@@ -1,20 +1,22 @@
-var $ = {};
-(function() {
-    //Private Property
-    var isHot = true;
-
-    //Private Method
-    var fly = function () {
-        console.log(isHot);
+(function($) {
+    $.addCookie = function (cookie, expire) {
+        return new $.Cookie(cookie, expire);
+    };
+    $.deleteCookie = function (name) {
+        $.getCookie(name).delete();
+    };
+    $.getCookie = function (name) {
+        return $.addCookie().get(name);
+    };
+    $.updateCookie = function (name, cookie, expire) {
+        $.getCookie(name).update(cookie, expire);
+    };
+    $.getAllCookies = function () {
+        return $.addCookie().getAllCookies();
+    };
+    $.deleteAllCookies = function () {
+        $.getAllCookies().forEach(function (c) {c.delete();});
     };
 
-    //Public Property
-    this.ingredient = "Bacon Strips";
 
-    //Public Method
-    this.fry = function() {
-        console.log(this.ingredient);
-    };
-
-
-}).apply($);
+})(window.$ = window.$ || {});
