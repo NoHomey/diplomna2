@@ -1,12 +1,12 @@
 (function($) {
     $.Cookie = function (cookie, expire) {
-        var expires_;
-        var name_;
-        var value_;
+        var expires;
+        var name;
+        var value;
         var copy = function (cookie) {
-            name_ = cookie.getName();
-            value_ = cookie.getValue();
-            expires_ = cookie.getExpire();
+            name = cookie.getName();
+            value = cookie.getValue();
+            expires = cookie.getExpire();
         };
         var formCookieObj = function (name, value) {
             var cookieObj = {};
@@ -18,28 +18,28 @@
             copy(new $.Cookie(cookie, expires));
         };
         this.setName = function (newName) {
-            this.update(formCookieObj(newName, value_),  expires_);
+            this.update(formCookieObj(newName, value),  expires);
         };
         this.setValue = function (newValue) {
-            this.update(formCookieObj(name_, newValue),  expires_);
+            this.update(formCookieObj(name, newValue),  expires);
         };
         this.setExpire = function (newExpires) {
-            this.update(formCookieObj(name_, value_), newExpires);
+            this.update(formCookieObj(name, value), newExpires);
         };
         this.getName = function () {
-            return name_;
+            return name;
         };
         this.getValue = function () {
-            return value_;
+            return value;
         };
         this.getExpire = function () {
-            return expires_;
+            return expires;
         };
         this.delete = function () {
-            new $.Cookie(formCookieObj(name_, value_), 0);
-            name_ = '';
-            value_ = {};
-            expires_ = 0;
+            new $.Cookie(formCookieObj(name, value), 0);
+            name = '';
+            value = {};
+            expires = 0;
         };
         this.getAllCookies = function () {
             var cookies = document.cookie;
@@ -66,11 +66,10 @@
             return !!(res && res.hasOwnProperty('exist') && res.hasOwnProperty('get'));
         };
         if(cookie) {
-            var name = Object.keys(cookie)[0];
-            expires_ = expire;
-            name_ = name;
-            value_ = cookie[name];
-            cookie[name] = JSON.stringify({value : cookie[name], expires :  expires_});
+            name = Object.keys(cookie)[0];
+            expires = expire;
+            value = cookie[name];
+            cookie[name] = JSON.stringify({value : cookie[name], expires :  expires});
             expire = (function (day) {
                 var exp;
                 if(day === -1)
@@ -82,7 +81,7 @@
                 return new Date(exp).toUTCString();
             })(expire);
             var newCookie = name + '=' + cookie[name];
-            if( expires_ !== undefined)
+            if( expires !== undefined)
                 newCookie += ';expires=' + expire;
             document.cookie = newCookie;
         }
