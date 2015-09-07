@@ -83,3 +83,15 @@ Set IDE settings {most of time spent in creating cusstom theme}.
 ###Working day durutation: 3:30
 
 Implemented Cookie Api and test it.
+
+##~06.09.2015:
+
+###Working day durutation: 08:00
+
+Learnt how to use self-invoking functions.
+
+Leanrt how to use the module-pattern and how to split a module accros files.
+
+Invented a really cool #include like system for the framework and made the async script loading almost sync.
+
+Made a separate file wich includes all build-in Objects extention.

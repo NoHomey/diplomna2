@@ -32,8 +32,3 @@ var Router = function (rout) {
         return request('DELETE', url);
     };
 };
-
-XMLHttpRequest.prototype.success = function (callback) {
-    this.success = callback;
-    return this;
-};

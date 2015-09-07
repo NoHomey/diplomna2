@@ -46,19 +46,21 @@
             if(!cookies)
                 return null;
             cookies = cookies.split('; ');
-            for(var index in cookies) {
-                var c = cookies[index].split('=');
+            for(var i = 0;i < cookies.length;++i) {
+                var c = cookies[i].split('=');
                 c[1] = JSON.parse(c[1]);
-                cookies[index] = new $.Cookie(formCookieObj(c[0], c[1].value), c[1].expires);
+                cookies[i] = new $.Cookie(formCookieObj(c[0], c[1].value), c[1].expires);
             }
             return cookies;
         };
         this.get = function (cookieName) {
             var cookies = this.getAllCookies();
-            for(var cookie in cookies)
-                if(cookies[cookie].getName() === cookieName) {
-                    copy(cookies[cookie]);
-                    return cookies[cookie];
+            if(!cookies)
+                return null;
+            for(var i = 0;i < cookies.length;++i)
+                if(cookies[i].getName() === cookieName) {
+                    copy(cookies[i]);
+                    return cookies[i];
                 }
         };
         this.exist = function (cookieName) {
@@ -66,7 +68,7 @@
             return !!(res && res.hasOwnProperty('exist') && res.hasOwnProperty('get'));
         };
         if(cookie) {
-            name = Object.keys(cookie)[0];
+            name = cookie.first();
             expires = expire;
             value = cookie[name];
             cookie[name] = JSON.stringify({value : cookie[name], expires :  expires});
@@ -81,7 +83,7 @@
                 return new Date(exp).toUTCString();
             })(expire);
             var newCookie = name + '=' + cookie[name];
-            if( expires !== undefined)
+            if(expires !== undefined)
                 newCookie += ';expires=' + expire;
             document.cookie = newCookie;
         }

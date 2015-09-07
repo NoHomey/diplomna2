@@ -1,1 +1,1 @@
-$.addDependencies(["test.js"]);
+$.addDependencies('/javascripts/', ['test.js']);

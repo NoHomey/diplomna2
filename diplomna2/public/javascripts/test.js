@@ -1,11 +1,11 @@
 
-$.newElement('body', 'button', {id : 'but', innerHTML : 'Click', onclick : function (event) {
+$.$('body').add($.newElement('button', {id : 'but', innerHTML : 'Click', onclick : function (event) {
     event.preventDefault();
     var router = new Router('/hellow');
     router.get('').success(function (resObjscet) {
         console.log(resObjscet.hellow, 'Ivo');
     }).send();
-}});
+}}));
 var z = $.addCookie({me : [1, 2]}, 2);
 var c2 = $.addCookie({ivo : {test : 3}}, 2);
 var c1 = $.addCookie({test : 3});
