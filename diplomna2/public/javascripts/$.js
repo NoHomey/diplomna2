@@ -39,6 +39,7 @@
             if(views[i].getName() === name) {
                 view = views[i];
                 view.build();
+                return;
             }
     }
 
