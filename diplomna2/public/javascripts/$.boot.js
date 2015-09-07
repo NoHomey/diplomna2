@@ -4,23 +4,25 @@
         return document.querySelector(selector);
     };
     $.addDependencies = function (path, dependencies) {
-        console.log(dependencies);
-        ['Extends.js', '$.js', 'Cookie.js', 'Router.js'].forEach(function (dependency) {
+        ['View.js', 'Extends.js', '$.js', 'Cookie.js', 'Router.js'].forEach(function (dependency) {
             dependencies.push(dependency);
         });
         dependencies.reverse();
-        console.log(dependencies);
         scriptsPath = path;
         $.load(dependencies);
     };
-    $.newElement = function (type, attrs) {
-        var element = document.createElement(type);
-        for(var a in attrs) {
-            if(attrs[a] === attrs.event) {
-                element.addEventListener(attrs[a].type, $.eventCallBack);
-                element['callback'] = attrs[a].callback;
-                element['ARGS'] = attrs[a].ARGS;
-            } else element[a] = attrs[a];
+    $.newElement = function (elementObj) {
+        var element = document.createElement(elementObj.$);
+        for(var prop in elementObj) {
+            if(elementObj.hasOwnProperty(prop)) {
+                if(elementObj[prop] === elementObj.$)
+                    continue;
+                if (elementObj[prop] === elementObj.event) {
+                    element.addEventListener (elementObj[prop].target , $.eventCallBack);
+                    element['callback'] = elementObj[prop].callback;
+                    element['ARGS'] = elementObj[prop].ARGS;
+                } else element[prop] = elementObj[prop];
+            }
         }
         return element;
     };
@@ -34,6 +36,6 @@
             return;
         var dep = deps[0];
         deps.splice(0, 1);
-        $.$('head').appendChild($.newElement('script', {src : scriptsPath + dep, event : {type : 'load', callback : $.load, ARGS : [deps]}}));
+        $.$('head').appendChild($.newElement({$ : 'script', src : scriptsPath + dep, event : {target : 'load', callback : $.load, ARGS : [deps]}}));
     };
 })(window.$ = window.$ || {});

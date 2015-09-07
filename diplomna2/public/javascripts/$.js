@@ -1,5 +1,7 @@
 (function($) {
     var cookie = new $.Cookie();
+    var views = [];
+    var view;
     $.addCookie = function (cookie, expire) {
         return new $.Cookie(cookie, expire);
     };
@@ -27,6 +29,18 @@
             $.deleteElement(element.firstChild);
         element.parentNode.removeChild(element);
     };
+    $.createView = function (name) {
+        var newView = new $.View(name);
+        views.push(newView);
+        return newView;
+    };
+    $.setView = function (name) {
+        for(var i = 0;i < views.length;++i)
+            if(views[i].getName() === name) {
+                view = views[i];
+                view.build();
+            }
+    }
 
 
 })(window.$ = window.$ || {});

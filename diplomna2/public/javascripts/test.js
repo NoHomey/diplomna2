@@ -1,20 +1,21 @@
 
-$.$('body').add($.newElement('button', {id : 'but', innerHTML : 'Click', onclick : function (event) {
-    event.preventDefault();
+//$.$('body').add($.newElement({$ : 'button', id : 'but', innerHTML : 'Click', onclick :));
+var ivo = $.createView("ivo");
+
+
+ivo.addResource('hellow', function (name) {
     var router = new Router('/hellow');
     router.get('').success(function (resObjscet) {
-        console.log(resObjscet.hellow, 'Ivo');
+        console.log(resObjscet.hellow, name);
     }).send();
-}}));
-var z = $.addCookie({me : [1, 2]}, 2);
-var c2 = $.addCookie({ivo : {test : 3}}, 2);
-var c1 = $.addCookie({test : 3});
-var c = $.addCookie();
-$.updateCookie("ivo", {ivo : "ivo.."}, 1);
-console.log($.getCookie("ivo").getValue());
-$.deleteAllCookies("ivo");
-//$.getAllCookies().forEach(function (c) {console.log(c.getName());});
-console.log(z.exist(z.getName()));
+});
+
+ivo.addResource('button', {$ : 'button', innerHTML : 'Click', event : {target : 'click', callback : '@hellow', ARGS : ['Ivo']}});
+
+ivo.setView({
+'@button' : ['@']
+});
+$.setView('ivo');
 
 
 

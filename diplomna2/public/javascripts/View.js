@@ -6,16 +6,26 @@
         };
         var name = viewName;
         var resources = [];
-        this.addResource = function (resource, name) {
+        var root = $.newElement({$ : 'body'});
+        var view;
+        var check = function (elementObj) {
+            for(var prop in elementObj)
+                if(elementObj.hasOwnProperty(prop))
+                    if((typeof elementObj[prop] === 'string') && (elementObj[prop][0] === '@'))
+                        elementObj[prop] = get(elementObj[prop]);
+            return elementObj;
+        };
+        var addTo = function (child, parent) {
+            parent.add($.newElement(check()));
+        };
+        this.addResource = function (name, resource) {
             resources.push(new Resource(resource, name));
         };
         this.getResource = function (name) {
-            for(var res in resources)
-                if(resources[res].name === name)
-                    return resources[res].resource;
-        };
-        this.getResources = function () {
-            return resources;
+            for(var i = 0;i < resources.length;++i)
+                if(resources[i].name === name)
+                    return resources[i].resource;
+            return null;
         };
         this.removeResource = function (name) {
             var pos = -1;
@@ -29,25 +39,21 @@
             return name;
         };
         this.get = function (name) {
-            if(name[0] !== '$')
+            if(name[0] !== '@')
                 return $.$(name);
-            name.slice(0, 1);
-            return getResource(name);
+            return this.getResource(name.slice(1, name.length));
         };
-        this.newElement = function (type, attrs) {
-            var element = document.createElement(type);
-            for(var a in attrs) {
-                if(attrs[a] === attrs.onclick)
-                    element.addEventListener("click", attrs[a]);
-                else element[a] = attrs[a];
-            }
-            return element;
+        this.build = function () {
+            console.log(view);
+            for(var element in view)
+                if(view.hasOwnProperty(element))
+                    console.log(element);
+                   // addTo(element, root)
+
+            return root;
         };
-        this.deleteElement = function (selectors) {
-            var element = $.$(selectors);
-            while(element.firstChild)
-                removeElement(element.firstChild);
-            element.parentNode.removeChild(element);
+        this.setView = function (viewObj) {
+            view = viewObj;
         };
     };
 })(window.$ = window.$ || {});
