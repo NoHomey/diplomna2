@@ -11,3 +11,7 @@
 ## https://www.airpair.com/javascript/complete-expressjs-nodejs-mongodb-crud-skeleton
 
 ## https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+
+#MEAN
+
+## http://code.ciphertrick.com/2015/07/10/mean-tutorial-build-front-end-angularjs/
