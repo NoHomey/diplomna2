@@ -1,4 +1,7 @@
 # diplomna2
+My second attempt (idea) for thesis in ***ELSYS (TUES) - Technological shcool "Electronic systems"*** as part of mine collage graduation. Which more or less documents the process for learning the basics of the MEAN (Mongo, Express, Angular, Node) stack.
+
+Some tutorials I moved through:
 
 # NodeJs tutorials:
 
@@ -12,6 +15,6 @@
 
 ## https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
 
-#MEAN
+#M EAN
 
 ## http://code.ciphertrick.com/2015/07/10/mean-tutorial-build-front-end-angularjs/
