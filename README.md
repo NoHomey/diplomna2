@@ -15,6 +15,6 @@ Some tutorials I moved through:
 
 ## https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
 
-#M EAN
+# MEAN
 
 ## http://code.ciphertrick.com/2015/07/10/mean-tutorial-build-front-end-angularjs/
