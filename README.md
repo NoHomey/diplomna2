@@ -1,5 +1,5 @@
 # diplomna2
-My second attempt (idea) for thesis in ***ELSYS (TUES) - Technological shcool "Electronic systems"*** as part of mine collage graduation. Which more or less documents the process for learning the basics of the MEAN (Mongo, Express, Angular, Node) stack.
+My second attempt (idea) for thesis in ***ELSYS (TUES) - Technological shcool "Electronic systems"*** as part of mine high school graduation. Which more or less documents the process for learning the basics of the MEAN (Mongo, Express, Angular, Node) stack.
 
 Some tutorials I moved through:
 
